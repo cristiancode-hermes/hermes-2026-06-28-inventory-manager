@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApiService {
-  readonly baseUrl = 'http://localhost:3000/api';
+  readonly baseUrl = '/api';
 
   get headers(): Record<string, string> {
     const h: Record<string, string> = {

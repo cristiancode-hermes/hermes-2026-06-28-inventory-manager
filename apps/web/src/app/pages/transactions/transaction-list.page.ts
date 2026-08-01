@@ -11,84 +11,84 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   standalone: true,
   imports: [FormsModule, PaginationComponent, DatePipe],
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Transactions</h1>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Transactions</h1>
+</div>
 
-      <!-- Filters -->
-      <div class="flex items-center gap-3 flex-wrap">
-        <input
-          [(ngModel)]="productFilter"
-          (input)="applyFilters()"
-          placeholder="Filter by product ID..."
-          class="border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 outline-none"
-        />
-        <select
-          [(ngModel)]="typeFilter"
-          (change)="applyFilters()"
-          class="border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100"
-        >
-          <option value="">All Types</option>
-          <option value="in">Stock In</option>
-          <option value="out">Stock Out</option>
-          <option value="adjustment">Adjustment</option>
-        </select>
-      </div>
+<!-- Filters -->
+<div class="flex items-center gap-3 flex-wrap">
+<input
+[(ngModel)]="productFilter"
+(input)="applyFilters()"
+placeholder="Filter by product ID..."
+class="border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark focus:ring-2 focus:ring-accent outline-none"
+/>
+<select
+[(ngModel)]="typeFilter"
+(change)="applyFilters()"
+class="border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark"
+>
+<option value="">All Types</option>
+<option value="in">Stock In</option>
+<option value="out">Stock Out</option>
+<option value="adjustment">Adjustment</option>
+</select>
+</div>
 
-      @if (loading()) {
-        <div class="space-y-3">
-          @for (i of [1,2,3,4]; track i) {
-            <div class="h-16 skeleton rounded-lg"></div>
-          }
-        </div>
-      } @else {
-        <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm overflow-hidden">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-secondary-50 dark:bg-gray-800">
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Date</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Product</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Warehouse</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Type</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Quantity</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Reason</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
-              @for (t of transactions(); track t.id) {
-                <tr class="hover:bg-secondary-50 dark:hover:bg-gray-800/50 transition-colors">
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 whitespace-nowrap">{{ t.createdAt | date:'short' }}</td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ t.productName }}</td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ t.warehouseName }}</td>
-                  <td class="px-4 py-3">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                      [class.bg-success-100]="t.type === 'in'"
-                      [class.text-success-700]="t.type === 'in'"
-                      [class.bg-danger-100]="t.type === 'out'"
-                      [class.text-danger-700]="t.type === 'out'"
-                      [class.bg-warning-100]="t.type === 'adjustment'"
-                      [class.text-warning-700]="t.type === 'adjustment'"
-                    >
-                      {{ t.type }}
-                    </span>
-                  </td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ t.quantity }}</td>
-                  <td class="px-4 py-3 text-sm text-neutral-500 dark:text-neutral-400 max-w-[200px] truncate">{{ t.reason }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+@if (loading()) {
+<div class="space-y-3">
+@for (i of [1,2,3,4]; track i) {
+<div class="h-16 skeleton rounded-btn"></div>
+}
+</div>
+} @else {
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark overflow-hidden">
+<table class="w-full">
+<thead>
+<tr class="bg-accent-light dark:bg-surface-card-dark">
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Date</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Product</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Warehouse</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Type</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Quantity</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Reason</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
+@for (t of transactions(); track t.id) {
+<tr class="hover:bg-accent-light dark:hover:bg-surface-card-dark/50 transition-colors">
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark whitespace-nowrap">{{ t.createdAt | date:'short' }}</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ t.productName }}</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ t.warehouseName }}</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-medium"
+[class.bg-green-100]="t.type === 'in'"
+[class.text-green-700]="t.type === 'in'"
+[class.bg-red-100]="t.type === 'out'"
+[class.text-red-700]="t.type === 'out'"
+[class.bg-amber-100]="t.type === 'adjustment'"
+[class.text-amber-700]="t.type === 'adjustment'"
+>
+{{ t.type }}
+</span>
+</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ t.quantity }}</td>
+<td class="px-4 py-3 text-sm text-text-secondary dark:text-text-secondary-dark max-w-[200px] truncate">{{ t.reason }}</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
 
-        <app-pagination
-          [currentPage]="currentPage()"
-          [totalPages]="totalPages()"
-          (pageChange)="onPageChange($event)"
-        />
-      }
-    </div>
-  `
+<app-pagination
+[currentPage]="currentPage()"
+[totalPages]="totalPages()"
+(pageChange)="onPageChange($event)"
+/>
+}
+</div>
+`
 })
 export class TransactionListPage implements OnInit {
   private http = inject(HttpClient);

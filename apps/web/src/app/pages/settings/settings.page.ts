@@ -10,43 +10,43 @@ import { User } from '../../models';
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div class="space-y-6">
-      <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Settings</h1>
+<div class="space-y-6">
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Settings</h1>
 
-      <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm p-6">
-        <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-4">Profile</h2>
-        
-        @if (loading()) {
-          <div class="space-y-3">
-            <div class="h-10 skeleton w-64"></div>
-            <div class="h-10 skeleton w-64"></div>
-          </div>
-        } @else {
-          <div class="space-y-4 max-w-md">
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Name</label>
-              <input
-                type="text"
-                [(ngModel)]="userName"
-                class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 outline-none"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Email</label>
-              <input
-                type="email"
-                [(ngModel)]="userEmail"
-                class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 outline-none"
-              />
-            </div>
-            <div class="pt-4">
-              <button (click)="saveProfile()" class="px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors">Save Changes</button>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  `
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark p-6">
+<h2 class="heading-2 text-text-primary dark:text-text-primary-dark mb-4">Profile</h2>
+
+@if (loading()) {
+<div class="space-y-3">
+<div class="h-10 skeleton w-64"></div>
+<div class="h-10 skeleton w-64"></div>
+</div>
+} @else {
+<div class="space-y-4 max-w-md">
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Name</label>
+<input
+type="text"
+[(ngModel)]="userName"
+class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark focus:ring-2 focus:ring-accent outline-none"
+/>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Email</label>
+<input
+type="email"
+[(ngModel)]="userEmail"
+class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark focus:ring-2 focus:ring-accent outline-none"
+/>
+</div>
+<div class="pt-4">
+<button (click)="saveProfile()" class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn transition-colors">Save Changes</button>
+</div>
+</div>
+}
+</div>
+</div>
+`
 })
 export class SettingsPage implements OnInit {
   private http = inject(HttpClient);

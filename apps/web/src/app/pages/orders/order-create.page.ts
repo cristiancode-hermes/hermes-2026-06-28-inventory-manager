@@ -11,166 +11,166 @@ import { Product, Supplier } from '../../models';
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <button (click)="router.navigate(['/orders'])" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mb-1">&larr; Back to Orders</button>
-          <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">New Order</h1>
-        </div>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<button (click)="router.navigate(['/orders'])" class="text-sm text-accent dark:text-accent hover:underline mb-1">&larr; Back to Orders</button>
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">New Order</h1>
+</div>
+</div>
 
-      <!-- Stepper -->
-      <div class="flex items-center gap-0">
-        @for (step of steps; track step.index) {
-          <div class="flex-1 flex items-center">
-            <div class="flex items-center gap-2">
-              <div
-                class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors"
-                [class.bg-primary-500]="currentStep() >= step.index"
-                [class.text-white]="currentStep() >= step.index"
-                [class.bg-secondary-200]="currentStep() < step.index"
-                [class.text-secondary-500]="currentStep() < step.index"
-              >
-                @if (currentStep() > step.index) {
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                  </svg>
-                } @else {
-                  {{ step.index + 1 }}
-                }
-              </div>
-              <span
-                class="text-sm font-medium"
-                [class.text-primary-600]="currentStep() >= step.index"
-                [class.text-secondary-400]="currentStep() < step.index"
-              >
-                {{ step.label }}
-              </span>
-            </div>
-            @if (step.index < steps.length - 1) {
-              <div class="flex-1 h-px mx-4"
-                [class.bg-primary-500]="currentStep() > step.index"
-                [class.bg-secondary-200]="currentStep() <= step.index"
-              ></div>
-            }
-          </div>
-        }
-      </div>
+<!-- Stepper -->
+<div class="flex items-center gap-0">
+@for (step of steps; track step.index) {
+<div class="flex-1 flex items-center">
+<div class="flex items-center gap-2">
+<div
+class="w-8 h-8 rounded-badge flex items-center justify-center text-sm font-semibold transition-colors"
+[class.bg-accent]="currentStep() >= step.index"
+[class.text-white]="currentStep() >= step.index"
+[class.bg-accent-medium]="currentStep() < step.index"
+[class.text-text-secondary]="currentStep() < step.index"
+>
+@if (currentStep() > step.index) {
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+</svg>
+} @else {
+{{ step.index + 1 }}
+}
+</div>
+<span
+class="text-sm font-medium"
+[class.text-accent]="currentStep() >= step.index"
+[class.text-text-secondary-dark]="currentStep() < step.index"
+>
+{{ step.label }}
+</span>
+</div>
+@if (step.index < steps.length - 1) {
+<div class="flex-1 h-px mx-4"
+[class.bg-accent]="currentStep() > step.index"
+[class.bg-accent-medium]="currentStep() <= step.index"
+></div>
+}
+</div>
+}
+</div>
 
-      <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm p-6">
-        <!-- Step 1: Select Supplier -->
-        @if (currentStep() === 0) {
-          <div class="space-y-4">
-            <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Select Supplier</h2>
-            <div class="space-y-2">
-              @for (supplier of suppliers(); track supplier.id) {
-                <label
-                  class="flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-colors"
-                  [class.border-primary-500]="selectedSupplierId() === supplier.id"
-                  [class.bg-primary-50]="selectedSupplierId() === supplier.id"
-                  [class.dark:bg-primary-900/10]="selectedSupplierId() === supplier.id"
-                  [class.border-neutral-200]="selectedSupplierId() !== supplier.id"
-                  [class.dark:border-gray-600]="selectedSupplierId() !== supplier.id"
-                >
-                  <input type="radio" name="supplier" [value]="supplier.id" [(ngModel)]="selectedSupplierId" class="text-primary-500" />
-                  <div>
-                    <p class="text-sm font-medium text-neutral-900 dark:text-neutral-100">{{ supplier.name }}</p>
-                    <p class="text-xs text-secondary-500">{{ supplier.contactName }} · {{ supplier.email }}</p>
-                  </div>
-                </label>
-              }
-            </div>
-          </div>
-        }
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark p-6">
+<!-- Step 1: Select Supplier -->
+@if (currentStep() === 0) {
+<div class="space-y-4">
+<h2 class="heading-2 text-text-primary dark:text-text-primary-dark">Select Supplier</h2>
+<div class="space-y-2">
+@for (supplier of suppliers(); track supplier.id) {
+<label
+class="flex items-center gap-3 p-4 rounded-btn border cursor-pointer transition-colors"
+[class.border-accent]="selectedSupplierId() === supplier.id"
+[class.bg-accent-light]="selectedSupplierId() === supplier.id"
+[class.dark:bg-accent-light]="selectedSupplierId() === supplier.id"
+[class.border-border]="selectedSupplierId() !== supplier.id"
+[class.dark:border-border-dark]="selectedSupplierId() !== supplier.id"
+>
+<input type="radio" name="supplier" [value]="supplier.id" [(ngModel)]="selectedSupplierId" class="text-primary-500" />
+<div>
+<p class="text-sm font-medium text-text-primary dark:text-text-primary-dark">{{ supplier.name }}</p>
+<p class="text-xs text-text-secondary">{{ supplier.contactName }} · {{ supplier.email }}</p>
+</div>
+</label>
+}
+</div>
+</div>
+}
 
-        <!-- Step 2: Add Items -->
-        @if (currentStep() === 1) {
-          <div class="space-y-4">
-            <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add Items</h2>
-            @for (item of orderItems(); track item.productId; let i = $index) {
-              <div class="flex items-center gap-3 p-3 bg-secondary-50 dark:bg-gray-800 rounded-lg">
-                <span class="flex-1 text-sm text-neutral-700 dark:text-neutral-300">{{ item.productName }}</span>
-                <input type="number" [(ngModel)]="item.quantity" min="1" class="w-24 border border-neutral-300 dark:border-gray-600 rounded px-2 py-1 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100" />
-                <button (click)="removeItem(i)" class="p-1 text-danger-500 hover:bg-danger-50 dark:hover:bg-danger-900/20 rounded">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                  </svg>
-                </button>
-              </div>
-            }
-            <div class="flex items-center gap-3">
-              <select [(ngModel)]="newItemProductId" class="flex-1 border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100">
-                <option value="">Select a product...</option>
-                @for (p of products(); track p.id) {
-                  <option [value]="p.id">{{ p.name }} ({{ p.sku }})</option>
-                }
-              </select>
-              <input type="number" [(ngModel)]="newItemQuantity" min="1" placeholder="Qty" class="w-24 border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100" />
-              <button (click)="addItem()" class="px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors">Add</button>
-            </div>
-          </div>
-        }
+<!-- Step 2: Add Items -->
+@if (currentStep() === 1) {
+<div class="space-y-4">
+<h2 class="heading-2 text-text-primary dark:text-text-primary-dark">Add Items</h2>
+@for (item of orderItems(); track item.productId; let i = $index) {
+<div class="flex items-center gap-3 p-3 bg-accent-light dark:bg-surface-card-dark rounded-btn">
+<span class="flex-1 text-sm text-text-primary dark:text-text-primary-dark">{{ item.productName }}</span>
+<input type="number" [(ngModel)]="item.quantity" min="1" class="w-24 border border-border dark:border-border-dark rounded px-2 py-1 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark" />
+<button (click)="removeItem(i)" class="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 rounded">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+</svg>
+</button>
+</div>
+}
+<div class="flex items-center gap-3">
+<select [(ngModel)]="newItemProductId" class="flex-1 border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark">
+<option value="">Select a product...</option>
+@for (p of products(); track p.id) {
+<option [value]="p.id">{{ p.name }} ({{ p.sku }})</option>
+}
+</select>
+<input type="number" [(ngModel)]="newItemQuantity" min="1" placeholder="Qty" class="w-24 border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark" />
+<button (click)="addItem()" class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn transition-colors">Add</button>
+</div>
+</div>
+}
 
-        <!-- Step 3: Order Details -->
-        @if (currentStep() === 2) {
-          <div class="space-y-4">
-            <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Order Details</h2>
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Expected Date</label>
-              <input type="date" [(ngModel)]="expectedDate" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Notes</label>
-              <textarea [(ngModel)]="notes" rows="3" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100" placeholder="Optional notes..."></textarea>
-            </div>
-          </div>
-        }
+<!-- Step 3: Order Details -->
+@if (currentStep() === 2) {
+<div class="space-y-4">
+<h2 class="heading-2 text-text-primary dark:text-text-primary-dark">Order Details</h2>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Expected Date</label>
+<input type="date" [(ngModel)]="expectedDate" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark" />
+</div>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Notes</label>
+<textarea [(ngModel)]="notes" rows="3" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark" placeholder="Optional notes..."></textarea>
+</div>
+</div>
+}
 
-        <!-- Summary -->
-        @if (currentStep() === 2) {
-          <div class="mt-6 p-4 bg-secondary-50 dark:bg-gray-800 rounded-lg">
-            <h3 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-2">Summary</h3>
-            <p class="text-sm text-secondary-600">Supplier: {{ selectedSupplierName }}</p>
-            <p class="text-sm text-secondary-600">Items: {{ orderItems().length }}</p>
-            <p class="text-sm text-secondary-600">Total quantity: {{ totalQuantity }}</p>
-          </div>
-        }
-      </div>
+<!-- Summary -->
+@if (currentStep() === 2) {
+<div class="mt-6 p-4 bg-accent-light dark:bg-surface-card-dark rounded-btn">
+<h3 class="text-sm font-semibold text-text-primary dark:text-text-primary-dark mb-2">Summary</h3>
+<p class="text-sm text-text-secondary">Supplier: {{ selectedSupplierName }}</p>
+<p class="text-sm text-text-secondary">Items: {{ orderItems().length }}</p>
+<p class="text-sm text-text-secondary">Total quantity: {{ totalQuantity }}</p>
+</div>
+}
+</div>
 
-      <!-- Navigation -->
-      <div class="flex items-center justify-between">
-        <button
-          (click)="prevStep()"
-          [disabled]="currentStep() === 0"
-          class="px-4 py-2 text-sm font-medium text-secondary-600 dark:text-secondary-400 border border-neutral-200 dark:border-gray-600 rounded-lg hover:bg-secondary-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Previous
-        </button>
-        <div class="flex gap-2">
-          @if (currentStep() < 2) {
-            <button
-              (click)="nextStep()"
-              class="px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg"
-            >
-              Next
-            </button>
-          } @else {
-            <button
-              (click)="submitOrder()"
-              [disabled]="submitting()"
-              class="px-4 py-2 text-sm font-medium text-white bg-success-500 hover:bg-success-600 rounded-lg disabled:opacity-50"
-            >
-              {{ submitting() ? 'Creating...' : 'Create Order' }}
-            </button>
-          }
-        </div>
-      </div>
+<!-- Navigation -->
+<div class="flex items-center justify-between">
+<button
+(click)="prevStep()"
+[disabled]="currentStep() === 0"
+class="px-4 py-2 text-sm font-medium text-text-secondary dark:text-text-secondary-dark border border-border dark:border-border-dark rounded-btn hover:bg-accent-light dark:hover:bg-surface-card-dark disabled:opacity-50 disabled:cursor-not-allowed"
+>
+Previous
+</button>
+<div class="flex gap-2">
+@if (currentStep() < 2) {
+<button
+(click)="nextStep()"
+class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn"
+>
+Next
+</button>
+} @else {
+<button
+(click)="submitOrder()"
+[disabled]="submitting()"
+class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-btn disabled:opacity-50"
+>
+{{ submitting() ? 'Creating...' : 'Create Order' }}
+</button>
+}
+</div>
+</div>
 
-      @if (error()) {
-        <div class="p-3 bg-danger-50 dark:bg-danger-900/20 text-danger-600 text-sm rounded-lg">{{ error() }}</div>
-      }
-    </div>
-  `
+@if (error()) {
+<div class="p-3 bg-red-50 dark:bg-red-950/20 text-red-600 text-sm rounded-btn">{{ error() }}</div>
+}
+</div>
+`
 })
 export class OrderCreatePage implements OnInit {
   private http = inject(HttpClient);

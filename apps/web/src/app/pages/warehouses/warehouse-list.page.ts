@@ -7,48 +7,48 @@ import { Warehouse } from '../../models';
   selector: 'app-warehouse-list-page',
   standalone: true,
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Warehouses</h1>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Warehouses</h1>
+</div>
 
-      @if (loading()) {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          @for (i of [1,2,3]; track i) {
-            <div class="h-40 skeleton rounded-lg"></div>
-          }
-        </div>
-      } @else {
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          @for (wh of warehouses(); track wh.id) {
-            <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm p-6 hover:shadow-md transition-shadow">
-              <div class="flex items-start justify-between mb-4">
-                <div>
-                  <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{{ wh.name }}</h3>
-                  <p class="text-sm text-secondary-500">{{ wh.location }}</p>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <div class="flex justify-between text-sm">
-                  <span class="text-secondary-500">Capacity</span>
-                  <span class="font-medium text-neutral-900 dark:text-neutral-100">{{ wh.currentLoad }} / {{ wh.capacity }}</span>
-                </div>
-                <div class="w-full bg-neutral-200 dark:bg-gray-700 rounded-full h-2">
-                  <div
-                    class="h-2 rounded-full transition-all"
-                    [class.bg-success-500]="usagePercent(wh) < 70"
-                    [class.bg-warning-500]="usagePercent(wh) >= 70 && usagePercent(wh) < 90"
-                    [class.bg-danger-500]="usagePercent(wh) >= 90"
-                    [style.width.%]="usagePercent(wh)"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
-      }
-    </div>
-  `
+@if (loading()) {
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+@for (i of [1,2,3]; track i) {
+<div class="h-40 skeleton rounded-btn"></div>
+}
+</div>
+} @else {
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+@for (wh of warehouses(); track wh.id) {
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark p-6 hover:transition-">
+<div class="flex items-start justify-between mb-4">
+<div>
+<h3 class="heading-2 text-text-primary dark:text-text-primary-dark">{{ wh.name }}</h3>
+<p class="text-sm text-text-secondary">{{ wh.location }}</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-sm">
+<span class="text-text-secondary">Capacity</span>
+<span class="font-medium text-text-primary dark:text-text-primary-dark">{{ wh.currentLoad }} / {{ wh.capacity }}</span>
+</div>
+<div class="w-full bg-border dark:bg-surface-card-dark rounded-badge h-2">
+<div
+class="h-2 rounded-badge transition-all"
+[class.bg-green-600]="usagePercent(wh) < 70"
+[class.bg-amber-500]="usagePercent(wh) >= 70 && usagePercent(wh) < 90"
+[class.bg-red-600]="usagePercent(wh) >= 90"
+[style.width.%]="usagePercent(wh)"
+></div>
+</div>
+</div>
+</div>
+}
+</div>
+}
+</div>
+`
 })
 export class WarehouseListPage implements OnInit {
   private http = inject(HttpClient);

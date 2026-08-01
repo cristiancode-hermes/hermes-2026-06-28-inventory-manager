@@ -13,75 +13,75 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   imports: [FormsModule, BadgeComponent, PaginationComponent, DatePipe],
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Orders</h1>
-        <a routerLink="/orders/new" class="px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors">New Order</a>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Orders</h1>
+<a routerLink="/orders/new" class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn transition-colors">New Order</a>
+</div>
 
-      <!-- Status filter -->
-      <div class="flex items-center gap-2">
-        @for (status of statuses; track status.value) {
-          <button
-            (click)="filterByStatus(status.value)"
-            class="px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors"
-            [class.bg-primary-500]="selectedStatus() === status.value"
-            [class.text-white]="selectedStatus() === status.value"
-            [class.border-primary-500]="selectedStatus() === status.value"
-            [class.bg-white]="selectedStatus() !== status.value"
-            [class.dark:bg-gray-800]="selectedStatus() !== status.value"
-            [class.border-neutral-300]="selectedStatus() !== status.value"
-            [class.dark:border-gray-600]="selectedStatus() !== status.value"
-            [class.text-secondary-600]="selectedStatus() !== status.value"
-            [class.dark:text-secondary-400]="selectedStatus() !== status.value"
-          >
-            {{ status.label }}
-          </button>
-        }
-      </div>
+<!-- Status filter -->
+<div class="flex items-center gap-2">
+@for (status of statuses; track status.value) {
+<button
+(click)="filterByStatus(status.value)"
+class="px-3 py-1.5 text-sm font-medium rounded-btn border transition-colors"
+[class.bg-accent]="selectedStatus() === status.value"
+[class.text-white]="selectedStatus() === status.value"
+[class.border-accent]="selectedStatus() === status.value"
+[class.bg-surface-card]="selectedStatus() !== status.value"
+[class.dark:bg-surface-card-dark]="selectedStatus() !== status.value"
+[class.border-border]="selectedStatus() !== status.value"
+[class.dark:border-border-dark]="selectedStatus() !== status.value"
+[class.text-text-secondary]="selectedStatus() !== status.value"
+[class.dark:text-text-secondary-dark]="selectedStatus() !== status.value"
+>
+{{ status.label }}
+</button>
+}
+</div>
 
-      @if (loading()) {
-        <div class="space-y-3">
-          @for (i of [1,2,3]; track i) {
-            <div class="h-16 skeleton rounded-lg"></div>
-          }
-        </div>
-      } @else {
-        <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm overflow-hidden">
-          <table class="w-full">
-            <thead>
-              <tr class="bg-secondary-50 dark:bg-gray-800">
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Order</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Supplier</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Status</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Expected</th>
-                <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Items</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
-              @for (order of orders(); track order.id) {
-                <tr class="hover:bg-secondary-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer" (click)="goToOrder(order.id)">
-                  <td class="px-4 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">#{{ order.id.substring(0, 8) }}</td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ order.supplierName }}</td>
-                  <td class="px-4 py-3">
-                    <app-badge [variant]="statusVariant(order.status)">{{ order.status }}</app-badge>
-                  </td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ order.expectedDate | date:'mediumDate' }}</td>
-                  <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ order.items?.length || 0 }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        </div>
+@if (loading()) {
+<div class="space-y-3">
+@for (i of [1,2,3]; track i) {
+<div class="h-16 skeleton rounded-btn"></div>
+}
+</div>
+} @else {
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark overflow-hidden">
+<table class="w-full">
+<thead>
+<tr class="bg-accent-light dark:bg-surface-card-dark">
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Order</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Supplier</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Status</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Expected</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Items</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
+@for (order of orders(); track order.id) {
+<tr class="hover:bg-accent-light dark:hover:bg-surface-card-dark/50 transition-colors cursor-pointer" (click)="goToOrder(order.id)">
+<td class="px-4 py-3 text-sm font-medium text-text-primary dark:text-text-primary-dark">#{{ order.id.substring(0, 8) }}</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ order.supplierName }}</td>
+<td class="px-4 py-3">
+<app-badge [variant]="statusVariant(order.status)">{{ order.status }}</app-badge>
+</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ order.expectedDate | date:'mediumDate' }}</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ order.items?.length || 0 }}</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
 
-        <app-pagination
-          [currentPage]="currentPage()"
-          [totalPages]="totalPages()"
-          (pageChange)="onPageChange($event)"
-        />
-      }
-    </div>
-  `
+<app-pagination
+[currentPage]="currentPage()"
+[totalPages]="totalPages()"
+(pageChange)="onPageChange($event)"
+/>
+}
+</div>
+`
 })
 export class OrderListPage implements OnInit {
   private http = inject(HttpClient);

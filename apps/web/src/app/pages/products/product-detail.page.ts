@@ -12,122 +12,122 @@ import { ModalComponent } from '../../shared/modal/modal.component';
   standalone: true,
   imports: [FormsModule, ModalComponent],
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <button (click)="router.navigate(['/products'])" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mb-1">&larr; Back to Products</button>
-          <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">{{ product()?.name || 'Loading...' }}</h1>
-        </div>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<button (click)="router.navigate(['/products'])" class="text-sm text-accent dark:text-accent hover:underline mb-1">&larr; Back to Products</button>
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">{{ product()?.name || 'Loading...' }}</h1>
+</div>
+</div>
 
-      @if (loading()) {
-        <div class="space-y-4">
-          <div class="h-8 skeleton w-48"></div>
-          <div class="h-8 skeleton w-96"></div>
-          <div class="h-8 skeleton w-64"></div>
-        </div>
-      } @else if (product(); as p) {
-        <!-- Product Details -->
-        <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm p-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-secondary-500 mb-1">SKU</label>
-              <p class="text-neutral-900 dark:text-neutral-100">{{ p.sku }}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-secondary-500 mb-1">Category</label>
-              <p class="text-neutral-900 dark:text-neutral-100">{{ p.category }}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-secondary-500 mb-1">Unit Price</label>
-              <p class="text-neutral-900 dark:text-neutral-100">\${{ p.unitPrice.toFixed(2) }}</p>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-secondary-500 mb-1">Reorder Point</label>
-              <p class="text-neutral-900 dark:text-neutral-100">{{ p.reorderPoint }}</p>
-            </div>
-            <div class="md:col-span-2">
-              <label class="block text-sm font-medium text-secondary-500 mb-1">Description</label>
-              <p class="text-neutral-900 dark:text-neutral-100">{{ p.description || 'No description' }}</p>
-            </div>
-          </div>
-        </div>
+@if (loading()) {
+<div class="space-y-4">
+<div class="h-8 skeleton w-48"></div>
+<div class="h-8 skeleton w-96"></div>
+<div class="h-8 skeleton w-64"></div>
+</div>
+} @else if (product(); as p) {
+<!-- Product Details -->
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-text-secondary mb-1">SKU</label>
+<p class="text-text-primary dark:text-text-primary-dark">{{ p.sku }}</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-secondary mb-1">Category</label>
+<p class="text-text-primary dark:text-text-primary-dark">{{ p.category }}</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-secondary mb-1">Unit Price</label>
+<p class="text-text-primary dark:text-text-primary-dark">\${{ p.unitPrice.toFixed(2) }}</p>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-secondary mb-1">Reorder Point</label>
+<p class="text-text-primary dark:text-text-primary-dark">{{ p.reorderPoint }}</p>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-text-secondary mb-1">Description</label>
+<p class="text-text-primary dark:text-text-primary-dark">{{ p.description || 'No description' }}</p>
+</div>
+</div>
+</div>
 
-        <!-- Stock by Warehouse -->
-        <div class="bg-white dark:bg-gray-900 rounded-lg border border-neutral-200 dark:border-gray-700 shadow-sm">
-          <div class="px-6 py-4 border-b border-neutral-200 dark:border-gray-700 flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Stock by Warehouse</h2>
-            <button (click)="openAdjustModal()" class="px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors">Adjust Stock</button>
-          </div>
-          <div class="p-4">
-            @if (stockLoading()) {
-              <div class="space-y-3">
-                @for (i of [1,2]; track i) {
-                  <div class="h-12 skeleton"></div>
-                }
-              </div>
-            } @else if (stockEntries().length === 0) {
-              <p class="text-sm text-secondary-500 text-center py-8">No stock records</p>
-            } @else {
-              <div class="overflow-x-auto">
-                <table class="w-full">
-                  <thead>
-                    <tr class="bg-secondary-50 dark:bg-gray-800">
-                      <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Warehouse</th>
-                      <th class="px-4 py-3 text-left text-xs font-semibold text-secondary-600 uppercase tracking-wider">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
-                    @for (entry of stockEntries(); track entry.id) {
-                      <tr>
-                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ entry.warehouseName }}</td>
-                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">{{ entry.quantity }}</td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
-              </div>
-            }
-          </div>
-        </div>
-      }
+<!-- Stock by Warehouse -->
+<div class="bg-surface-card dark:bg-surface-card-dark rounded-btn border border-border dark:border-border-dark ">
+<div class="px-6 py-4 border-b border-border dark:border-border-dark flex items-center justify-between">
+<h2 class="heading-2 text-text-primary dark:text-text-primary-dark">Stock by Warehouse</h2>
+<button (click)="openAdjustModal()" class="px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn transition-colors">Adjust Stock</button>
+</div>
+<div class="p-4">
+@if (stockLoading()) {
+<div class="space-y-3">
+@for (i of [1,2]; track i) {
+<div class="h-12 skeleton"></div>
+}
+</div>
+} @else if (stockEntries().length === 0) {
+<p class="text-sm text-text-secondary text-center py-8">No stock records</p>
+} @else {
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="bg-accent-light dark:bg-surface-card-dark">
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Warehouse</th>
+<th class="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">Quantity</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-neutral-200 dark:divide-gray-700">
+@for (entry of stockEntries(); track entry.id) {
+<tr>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ entry.warehouseName }}</td>
+<td class="px-4 py-3 text-sm text-text-primary dark:text-text-primary-dark">{{ entry.quantity }}</td>
+</tr>
+}
+</tbody>
+</table>
+</div>
+}
+</div>
+</div>
+}
 
-      <!-- Adjust Stock Modal -->
-      <app-modal [isOpen]="showAdjustModal()" title="Adjust Stock" (close)="showAdjustModal.set(false)">
-        @if (adjustError()) {
-          <div class="mb-4 p-3 bg-danger-50 dark:bg-danger-900/20 text-danger-600 text-sm rounded-lg">{{ adjustError() }}</div>
-        }
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Type</label>
-            <select [(ngModel)]="adjustType" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100">
-              <option value="in">Stock In</option>
-              <option value="out">Stock Out</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Quantity</label>
-            <input type="number" [(ngModel)]="adjustQuantity" min="1" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Reason</label>
-            <textarea [(ngModel)]="adjustReason" rows="2" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100"></textarea>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Warehouse</label>
-            <select [(ngModel)]="adjustWarehouseId" class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100">
-              @for (wh of warehouses(); track wh.id) {
-                <option [value]="wh.id">{{ wh.name }}</option>
-              }
-            </select>
-          </div>
-          <button (click)="submitAdjust()" [disabled]="adjustSubmitting()" class="w-full px-4 py-2 text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 rounded-lg disabled:opacity-50">
-            {{ adjustSubmitting() ? 'Submitting...' : 'Submit Adjustment' }}
-          </button>
-        </div>
-      </app-modal>
-    </div>
-  `
+<!-- Adjust Stock Modal -->
+<app-modal [isOpen]="showAdjustModal()" title="Adjust Stock" (close)="showAdjustModal.set(false)">
+@if (adjustError()) {
+<div class="mb-4 p-3 bg-red-50 dark:bg-red-950/20 text-red-600 text-sm rounded-btn">{{ adjustError() }}</div>
+}
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Type</label>
+<select [(ngModel)]="adjustType" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark">
+<option value="in">Stock In</option>
+<option value="out">Stock Out</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Quantity</label>
+<input type="number" [(ngModel)]="adjustQuantity" min="1" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark" />
+</div>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Reason</label>
+<textarea [(ngModel)]="adjustReason" rows="2" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-primary dark:text-text-primary-dark mb-1">Warehouse</label>
+<select [(ngModel)]="adjustWarehouseId" class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark">
+@for (wh of warehouses(); track wh.id) {
+<option [value]="wh.id">{{ wh.name }}</option>
+}
+</select>
+</div>
+<button (click)="submitAdjust()" [disabled]="adjustSubmitting()" class="w-full px-4 py-2 text-sm font-medium text-white bg-accent hover:bg-accent rounded-btn disabled:opacity-50">
+{{ adjustSubmitting() ? 'Submitting...' : 'Submit Adjustment' }}
+</button>
+</div>
+</app-modal>
+</div>
+`
 })
 export class ProductDetailPage implements OnInit {
   private route = inject(ActivatedRoute);

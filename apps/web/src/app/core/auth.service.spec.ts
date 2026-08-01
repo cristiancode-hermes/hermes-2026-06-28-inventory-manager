@@ -50,7 +50,7 @@ describe('AuthService', () => {
         service.login({ email: 'test@test.com', password: 'password123' }),
       );
 
-      const req = httpMock.expectOne('http://localhost:3000/api/auth/login');
+      const req = httpMock.expectOne('/api/auth/login');
       expect(req.request.method).toBe('POST');
       req.flush(mockResponse);
 
@@ -77,7 +77,7 @@ describe('AuthService', () => {
         }),
       );
 
-      const req = httpMock.expectOne('http://localhost:3000/api/auth/register');
+      const req = httpMock.expectOne('/api/auth/register');
       expect(req.request.method).toBe('POST');
       req.flush(mockResponse);
 
@@ -108,7 +108,7 @@ describe('AuthService', () => {
 
       const responsePromise = firstValueFrom(service.getMe());
 
-      const req = httpMock.expectOne('http://localhost:3000/api/auth/me');
+      const req = httpMock.expectOne('/api/auth/me');
       expect(req.request.method).toBe('GET');
       req.flush(mockUser);
 
@@ -122,7 +122,7 @@ describe('AuthService', () => {
 
       const responsePromise = firstValueFrom(service.getMe());
 
-      const req = httpMock.expectOne('http://localhost:3000/api/auth/me');
+      const req = httpMock.expectOne('/api/auth/me');
       req.flush({ message: 'Unauthorized' }, { status: 401, statusText: 'Unauthorized' });
 
       await expect(responsePromise).rejects.toThrow();

@@ -12,44 +12,44 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
   standalone: true,
   imports: [FormsModule, DataTableComponent, PaginationComponent],
   template: `
-    <div class="space-y-6">
-      <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Products</h1>
-      </div>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Products</h1>
+</div>
 
-      <!-- Filters -->
-      <div class="flex items-center gap-3 flex-wrap">
-        <div class="flex-1 min-w-[200px]">
-          <input
-            [(ngModel)]="searchQuery"
-            (input)="onSearch()"
-            placeholder="Search products..."
-            class="w-full border border-neutral-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 outline-none"
-          />
-        </div>
-      </div>
+<!-- Filters -->
+<div class="flex items-center gap-3 flex-wrap">
+<div class="flex-1 min-w-[200px]">
+<input
+[(ngModel)]="searchQuery"
+(input)="onSearch()"
+placeholder="Search products..."
+class="w-full border border-border dark:border-border-dark rounded-btn px-3 py-2 text-sm bg-surface-card dark:bg-surface-card-dark text-text-primary dark:text-text-primary-dark focus:ring-2 focus:ring-accent outline-none"
+/>
+</div>
+</div>
 
-      @if (error()) {
-        <div class="p-4 bg-danger-50 dark:bg-danger-900/20 text-danger-600 dark:text-danger-400 text-sm rounded-lg">{{ error() }}</div>
-      }
+@if (error()) {
+<div class="p-4 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 text-sm rounded-btn">{{ error() }}</div>
+}
 
-      <app-data-table
-        [columns]="columns"
-        [rows]="rows"
-        [loading]="loading()"
-        [error]="tableError()"
-        emptyMessage="No products found"
-        (rowClick)="onRowClick($event)"
-        (retry)="loadProducts()"
-      />
+<app-data-table
+[columns]="columns"
+[rows]="rows"
+[loading]="loading()"
+[error]="tableError()"
+emptyMessage="No products found"
+(rowClick)="onRowClick($event)"
+(retry)="loadProducts()"
+/>
 
-      <app-pagination
-        [currentPage]="currentPage()"
-        [totalPages]="totalPages()"
-        (pageChange)="onPageChange($event)"
-      />
-    </div>
-  `
+<app-pagination
+[currentPage]="currentPage()"
+[totalPages]="totalPages()"
+(pageChange)="onPageChange($event)"
+/>
+</div>
+`
 })
 export class ProductListPage implements OnInit {
   private http = inject(HttpClient);

@@ -6,13 +6,13 @@ import { NgClass } from '@angular/common';
   standalone: true,
   imports: [NgClass],
   template: `
-    <span
-      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-      [ngClass]="classMap()"
-    >
-      <ng-content />
-    </span>
-  `
+<span
+class="inline-flex items-center px-2.5 py-0.5 rounded-badge text-xs font-medium"
+[ngClass]="classMap()"
+>
+<ng-content />
+</span>
+`
 })
 export class BadgeComponent {
   readonly variant = input<'default' | 'success' | 'warning' | 'danger' | 'info'>('default');
