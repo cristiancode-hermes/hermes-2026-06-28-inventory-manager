@@ -44,10 +44,10 @@ export class PurchaseOrder {
   @Column({ type: 'text', nullable: true })
   notes: string;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   orderedAt: Date;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   receivedAt: Date;
 
   @CreateDateColumn()

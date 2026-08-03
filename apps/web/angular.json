@@ -24,8 +24,12 @@
                 "input": "public"
               }
             ],
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "styles": [
-              "src/styles.css"
+              "src/tailwind.css",
+              "src/styles.scss"
             ]
           },
           "configurations": {

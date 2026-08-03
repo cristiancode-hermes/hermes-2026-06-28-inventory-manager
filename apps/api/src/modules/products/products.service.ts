@@ -60,4 +60,38 @@ export class ProductsService {
     const product = await this.findOne(organizationId, id);
     await this.productRepository.remove(product);
   }
+
+  async exportCsv(organizationId: number, search?: string, category?: string) {
+    const where: any = { organizationId };
+    if (search) {
+      where.name = Like(`%${search}%`);
+    }
+    if (category) {
+      where.category = category;
+    }
+    const products = await this.productRepository.find({
+      where,
+      order: { name: 'ASC' },
+    });
+
+    const escape = (v: unknown): string => {
+      const s = v == null ? '' : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+
+    const header = ['sku', 'name', 'category', 'unit_price', 'reorder_level', 'created_at'];
+    const rows = products.map((p) => [
+      p.sku,
+      p.name,
+      p.category,
+      p.unitPrice,
+      p.reorderLevel,
+      p.createdAt ? new Date(p.createdAt).toISOString() : '',
+    ]);
+
+    return {
+      filename: `products-${new Date().toISOString().slice(0, 10)}.csv`,
+      csv: [header, ...rows].map((r) => r.map(escape).join(',')).join('\n'),
+    };
+  }
 }

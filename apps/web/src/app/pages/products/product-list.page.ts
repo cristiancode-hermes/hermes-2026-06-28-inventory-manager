@@ -15,6 +15,9 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 <div class="space-y-6">
 <div class="flex items-center justify-between">
 <h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Products</h1>
+<button (click)="exportCsv()" class="inline-flex items-center gap-2 rounded-lg border border-border-primary dark:border-border-primary-dark px-4 py-2 text-sm font-medium text-text-primary dark:text-text-primary-dark hover:border-primary-500 hover:text-primary-600 transition-colors">
+  ⬇️ Export CSV
+</button>
 </div>
 
 <!-- Filters -->
@@ -113,6 +116,32 @@ export class ProductListPage implements OnInit {
   onSearch(): void {
     this.currentPage.set(1);
     this.loadProducts();
+  }
+
+  exportCsv(): void {
+    const params: Record<string, string> = {};
+    if (this.searchQuery()) {
+      params['q'] = this.searchQuery();
+    }
+    const queryStr = Object.entries(params).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+    this.http
+      .get(`${this.api.baseUrl}/products/export${queryStr ? '?' + queryStr : ''}`, {
+        headers: this.api.headers,
+        responseType: 'blob',
+      })
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `products-${new Date().toISOString().slice(0, 10)}.csv`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          this.tableError.set('Failed to export products');
+        },
+      });
   }
 
   onPageChange(page: number): void {

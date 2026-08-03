@@ -19,13 +19,29 @@ import { SeedModule } from './modules/seed/seed.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: (config: ConfigService) => ({
-        type: 'sqljs',
-        location: config.get<string>('DATABASE_URL', 'data/inventory.db'),
-        autoSave: true,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      }),
+      useFactory: (config: ConfigService) => {
+        const dbType = config.get<string>('DATABASE_TYPE') || 'sqljs';
+        const url = config.get<string>('DATABASE_URL') || '';
+
+        if (dbType === 'postgres') {
+          return {
+            type: 'postgres',
+            url,
+            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            synchronize: true,
+            autoLoadEntities: true,
+            ssl: { rejectUnauthorized: false },
+          };
+        }
+
+        return {
+          type: 'sqljs',
+          location: config.get<string>('DATABASE_URL', 'data/inventory.db'),
+          autoSave: true,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: true,
+        };
+      },
       inject: [ConfigService],
     }),
     ServeStaticModule.forRoot({

@@ -14,6 +14,9 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 <div class="space-y-6">
 <div class="flex items-center justify-between">
 <h1 class="heading-1 text-text-primary dark:text-text-primary-dark">Transactions</h1>
+<button (click)="exportCsv()" class="inline-flex items-center gap-2 rounded-lg border border-border-primary dark:border-border-primary-dark px-4 py-2 text-sm font-medium text-text-primary dark:text-text-primary-dark hover:border-primary-500 hover:text-primary-600 transition-colors">
+  ⬇️ Export CSV
+</button>
 </div>
 
 <!-- Filters -->
@@ -133,6 +136,35 @@ export class TransactionListPage implements OnInit {
       this.currentPage.set(1);
       this.loadTransactions();
     }, 300);
+  }
+
+  exportCsv(): void {
+    let url = `${this.api.baseUrl}/transactions/export`;
+    const params: string[] = [];
+    if (this.productFilter()) {
+      params.push(`productId=${encodeURIComponent(this.productFilter())}`);
+    }
+    if (this.typeFilter()) {
+      params.push(`type=${this.typeFilter()}`);
+    }
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+    this.http
+      .get(url, { headers: this.api.headers, responseType: 'blob' })
+      .subscribe({
+        next: (blob) => {
+          const urlObj = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = urlObj;
+          a.download = `transactions-${new Date().toISOString().slice(0, 10)}.csv`;
+          a.click();
+          window.URL.revokeObjectURL(urlObj);
+        },
+        error: () => {
+          // ignore download errors silently
+        },
+      });
   }
 
   onPageChange(page: number): void {

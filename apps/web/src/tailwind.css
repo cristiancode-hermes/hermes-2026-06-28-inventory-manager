@@ -2,32 +2,32 @@
 
 @layer base {
   :root {
-    --color-brand-50: #f1f4f2;
-    --color-brand-100: #e1e7e4;
-    --color-brand-200: #c6d2cb;
-    --color-brand-300: #9fb3a7;
-    --color-brand-400: #5f806d;
-    --color-brand-500: #1a4a2e;
-    --color-brand-600: #164028;
-    --color-brand-700: #123420;
-    --color-brand-800: #0f2b1b;
-    --color-brand-900: #0c2115;
-    --color-surface-50: #8eccaa;
-    --color-surface-100: #87c3a2;
-    --color-surface-200: #7db496;
-    --color-surface-300: #6fa286;
-    --color-surface-400: #5c8970;
-    --color-surface-500: #4a715c;
-    --color-surface-600: #395947;
-    --color-surface-700: #2b4738;
-    --color-surface-800: #1d3528;
-    --color-surface-900: #14281d;
-    --color-surface-950: #0d1f15;
+    --color-brand-50: #eff6ff;
+    --color-brand-100: #dbeafe;
+    --color-brand-200: #bfdbfe;
+    --color-brand-300: #93c5fd;
+    --color-brand-400: #60a5fa;
+    --color-brand-500: #3b82f6;
+    --color-brand-600: #2563eb;
+    --color-brand-700: #1d4ed8;
+    --color-brand-800: #1e40af;
+    --color-brand-900: #1e3a8a;
+    --color-surface-50: #f8fafc;
+    --color-surface-100: #f1f5f9;
+    --color-surface-200: #e2e8f0;
+    --color-surface-300: #cbd5e1;
+    --color-surface-400: #94a3b8;
+    --color-surface-500: #64748b;
+    --color-surface-600: #475569;
+    --color-surface-700: #334155;
+    --color-surface-800: #1e293b;
+    --color-surface-900: #0f172a;
+    --color-surface-950: #020617;
     --color-success: #22c55e;
     --color-warning: #f59e0b;
     --color-danger: #ef4444;
-    --font-heading: 'IBM Plex Mono', 'Courier New', monospace;
-    --font-body: 'IBM Plex Mono', 'Courier New', monospace;
+    --font-heading: 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 }
