@@ -140,3 +140,17 @@ h1,h2,h3,h4 { font-family: var(--font-heading); text-wrap: balance; }
 .hover\:bg-primary:hover { background: var(--color-primary); }
 .hover\:bg-primary-700:hover { background: var(--color-primary-700); }
 .hover\:text-primary-700:hover { color: var(--color-primary-700); }
+
+/* Inventory extras (surface-card, accent-light, text-text, radius) */
+.bg-accent-light { background: var(--color-accent-100); }
+.hover\:bg-accent-light:hover { background: var(--color-accent-100); }
+.bg-surface-card { background: var(--color-surface-card); }
+.bg-border { background: var(--color-border); }
+.border-border { border-color: var(--color-border); }
+.border-border-primary { border-color: var(--color-primary-500); }
+.text-text-primary { color: var(--color-text-primary); }
+.text-text-secondary { color: var(--color-text-secondary); }
+.text-text-secondary-dark { color: var(--color-text-secondary-dark); }
+.rounded-btn { border-radius: var(--radius-btn); }
+.rounded-card { border-radius: var(--radius-card); }
+.rounded-badge { border-radius: var(--radius-badge); }
